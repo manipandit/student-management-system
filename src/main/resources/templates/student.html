@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Management System</title>
+    <style>
+        /* Reset body margin and padding */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh; /* Ensures the footer is pushed to the bottom */
+        }
+
+        /* Main wrapper for content */
+        .content-wrapper {
+            flex: 1; /* This allows the content area to grow and push footer down */
+        }
+
+        header {
+            background-color: #000;
+            color: white;
+            text-align: center;
+            padding: 10px;
+        }
+
+        nav {
+            display: flex;
+            justify-content: center;
+            background-color: #333;
+        }
+
+        nav a {
+            color: white;
+            padding: 14px 20px;
+            text-decoration: none;
+            text-align: center;
+        }
+
+        nav a:hover {
+            background-color: #ddd;
+            color: black;
+        }
+
+        .content {
+            padding: 20px;
+            text-align: center;
+        }
+
+        table {
+            width: 80%;
+            margin: 20px auto;
+            border-collapse: collapse;
+        }
+
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #333;
+            color: white;
+        }
+
+        footer {
+            background-color: #000;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            position: relative; /* Removed fixed position */
+            bottom: 0;
+            width: 100%;
+        }
+
+        /* Ensure button styling */
+        button {
+            background-color: #333;
+            border: none;
+            border-radius: 5px;
+            padding: 5px;
+            cursor: pointer;
+        }
+
+        button a {
+            color: white;
+            text-decoration: none;
+        }
+
+        button a:hover {
+            opacity: 100%;
+        }
+
+        #heading {
+            text-align: center;
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- Wrapper for content and table to maintain footer position -->
+    <div class="content-wrapper">
+        <!-- Header Section -->
+        <header>
+            <h1>Student Management System</h1>
+        </header>
+
+        <!-- Home Section -->
+        <div id="home" class="content active">
+            <h2>Welcome to the Student Management System</h2>
+            <p>This system helps manage student information and keep track of student records.</p>
+        </div>
+
+        <!-- Students Section -->
+        <div class="content">
+            <h2 id="heading">Students List</h2>
+            <div style="padding-left: 140px; display: flex; align-items: flex-start;">
+                <button style="padding: 8px;">
+                    <a th:href="@{/new}"> Add Student </a>
+                </button>
+            </div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>Email</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="student : ${students}">
+                        <td th:text="${student.firstName}"></td>
+                        <td th:text="${student.lastName}"></td>
+                        <td th:text="${student.email}"></td>
+                        <td style="">
+                            <button>
+                                <a th:href="@{/edit/{id}(id=${student.id})}">Update</a>
+                            </button>
+                            
+                             <button style="background-color: red; opacity: 80%;">
+                                <a th:href="@{/{id}(id=${student.id})}">Delete</a>
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Footer Section -->
+    <footer>
+        <p>&copy; 2024 Student Management System. All rights reserved.</p>
+    </footer>
+
+</body>
+</html>
